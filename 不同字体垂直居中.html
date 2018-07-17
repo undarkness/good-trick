@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>各字体所在行的垂直居中</title>
+  <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
+<style>
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+body {
+  --color1: hsl(2,86%,58%);
+  --color2: hsl(0,63%,32%);
+  background: var(--color1);
+  color: var(--color2);
+  text-align: center;
+}
+.p {
+  background: var(--color2);
+  border: 2px solid white;
+  border-left: 0;
+  border-right: 0;
+  color: #fff;
+  max-width: 540px;
+  margin: 30px auto;
+  
+  /* font metrics */
+  --font: Catamaran;
+  --fm-emSquare: 1;
+  --fm-capitalHeight: 0.68;
+  --fm-descender: 0.54;
+  --fm-ascender: 1.1;
+  --fm-linegap: 0;
+  
+  /* compute needed values */
+  --lineheightNormal: (var(--fm-ascender) + var(--fm-descender) + var(--fm-linegap));
+  --distanceBottom: (var(--fm-descender));
+  --distanceTop: (var(--fm-ascender) - var(--fm-capitalHeight));
+  --contentArea: (var(--lineheightNormal) * var(--computedFontSize));
+  --valign: ((var(--distanceBottom) - var(--distanceTop)) * var(--computedFontSize));  
+  --computedFontSize: (var(--capital-height) / var(--fm-capitalHeight)); 
+  --computedLineheight: ((var(--line-height) * var(--capital-height)) - var(--valign));
+  
+  /* desired capital height and line-height */
+  --capital-height: 100;
+  --line-height: 1;
+  
+  /* set font family */
+  font-family: var(--font);
+  
+  /* set capital height to equal font-size */
+  font-size: calc(var(--computedFontSize) * 1px);
+
+  /* set computed line-height */
+  line-height: calc(var(--computedLineheight) * 1px);
+
+}
+.c {
+  /* apply vertical align */
+  vertical-align: calc(var(--valign) * -1px);
+}
+.c::before {
+  content: '';
+  display: inline-block;
+  width: calc(1px * var(--capital-height));
+  height: calc(1px * var(--capital-height));
+  margin-right: 10px;
+  background: url('https://cdn.pbrd.co/images/yBAKn5bbv.png');
+  background-size: cover;
+}
+
+.p1 {
+  --line-height: 2;
+}
+.p2 {
+  --capital-height: 75;
+  --line-height: 3;
+}
+</style>
+</head>
+<body>
+  
+  <p class="p p0"><span class="c">Ba</p>
+  <p class="p p1"><span class="c">Ba</p>
+  <p class="p p2"><span class="c">Ba</p>
+  
+</body>
+</html>
